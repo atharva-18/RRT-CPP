@@ -12,6 +12,7 @@ include_directories(External/matplotlib)
 add_executable(rrt
                src/main.cpp
                src/rrt.cpp
+               src/point.cpp
 )
 
 find_package(Python COMPONENTS Development)
