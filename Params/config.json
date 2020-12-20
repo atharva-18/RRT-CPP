@@ -1,0 +1,10 @@
+{
+  "start": [0.0, 0.0],
+  "end": [6.0, 10.0],
+  "obstacles": [[5, 5, 1], [3, 6, 1], [3, 8, 1], [3, 10, 1], [7, 5, 1], [9, 5, 1], [8, 10, 1]],
+  "max_step": 3.0,
+  "iterations": 500,
+  "sample_range_min": 0,
+  "sample_range_max": 15,
+  "precision": 0.5
+}
