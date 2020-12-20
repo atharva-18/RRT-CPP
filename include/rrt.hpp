@@ -12,10 +12,14 @@ class RRT
 public:
   // Constructor
   RRT();
-  RRT(Point _start, Point _end, std::vector<Point> _obstacles);
-
-  // Destructor
-  ~RRT();
+  RRT(Point _start,
+      Point _end,
+      std::vector<Point> _obstacles,
+      const double _maxStep=3.0,
+      const int _iterations=500,
+      const double _threshold=0.5,
+      const int _sampleRangeMin=0,
+      const int _sampleRangeMax=15);
 
   /**
    * @brief Runs the RRT algorithm over given iterations
@@ -30,6 +34,18 @@ public:
   Point sample();
 
   /**
+   * @brief Checks if the given node collides with any obstacle
+   * @return True is colliding else false
+   */
+  bool collision(Point _point);
+
+  /**
+   * @brief Check if end point can be reached and add final point
+   * @return True is path is complete else false
+   */
+  bool checkPathClosure(Point _point);
+
+  /**
    * @brief Get point that is nearest to a given point
    * @return Nearest Point
    */
@@ -42,33 +58,26 @@ public:
   Point getNearestObstacle(Point _point);
 
   /**
-   * @brief Returns a point considering source and destination
-   * @return Point instance with path
-   */
-  Point getPoint(Point _source, Point _destination);
-
-  /**
    * @brief Get distance between two points
    * @return double: Distance between two points
    */
   double getDistance(Point _a, Point _b);
 
   /**
-   * @brief Checks if the given node collides with any obstacle
-   * @return True is colliding else false
+   * @brief Get path from the last point
+   * @return List of points in the path
    */
-  bool collision(Point _point);
+  std::vector<Point> getPath();
 
   /**
-   * @brief Check if end point can be reached and add final point
-   * @return True is path is complete else false
+   * @brief Get all points in the state space
+   * @return List of all points in the state space
    */
-  bool checkPathClosure(Point _point);
-
-  Point start;
-  Point end;
+  std::vector<Point> getPoints();
 
 private:
+  Point start;
+  Point end;
   std::vector<Point> points;
   std::vector<Point> obstacles;
   int iterations;
