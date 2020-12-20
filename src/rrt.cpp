@@ -7,18 +7,18 @@ RRT::RRT(Point _start,
          std::vector<Obstacle> _obstacles,
          const double _maxStep /*2.0*/,
          const int _iterations /*=500 */,
-         const double _threshold /*=0.5*/,
          const int _sampleRangeMin /*=0*/,
-         const int _sampleRangeMax /*=20*/)
+         const int _sampleRangeMax /*=20*/,
+         const double _precision /*=0.5*/)
 {
   start = _start;
   end = _end;
   obstacles = _obstacles;
   maxStep = _maxStep;
   iterations = _iterations;
-  threshold = _threshold;
   sampleRangeMin = _sampleRangeMin;
   sampleRangeMax = _sampleRangeMax;
+  precision = _precision;
 
   points.push_back(_start);
 }
@@ -28,7 +28,6 @@ bool RRT::run()
 {
   int cnt = 0;
   for(int i = 0; i < iterations; i++, cnt++) {
-    // std::cout << i << std::endl;
     auto sampledPoint = sample();
     auto nearestPoint = getNearestPoint(sampledPoint);
 
@@ -40,14 +39,10 @@ bool RRT::run()
     double distance = getDistance(sampledPoint, nearestPoint);
     bool colliding = collision(sampledPoint);
 
-    // std::cout << "d: " << distance << " colliding: " << colliding << std::endl;
-    // std::cout << "-------------" << std::endl;
-
     if (distance > maxStep || colliding)
       continue;
 
     if (!colliding && distance <= maxStep) {
-      // std::cout << "Added!" << std::endl;
       points.push_back(sampledPoint);
 
       if(checkPathClosure(sampledPoint))
@@ -118,16 +113,24 @@ std::vector<Point> RRT::getPoints()
  bool RRT::collision(Point _point)
  {
     for (auto &obstacle:obstacles) {
-      for (auto &point:points) {
-        double dxc = obstacle.x - _point.x;
-        double dyc = obstacle.y - _point.y;
+      if (std::hypot(obstacle.x - _point.x, obstacle.y - _point.y) - obstacle.a < 1e-2)
+        return true;
 
-        double dxl = _point.parentX - _point.x;
-        double dyl = _point.parentY - _point.y;
+      const double dx = _point.x - _point.parentX;
+      const double dy = _point.y - _point.parentY;
+      const double d = std::hypot(dx, dy);
 
-        double cross = dxc * dyl - dyc * dxl;
+      const int nmAddPoints = d / precision;
 
-        if(static_cast<int>(cross) == 0)
+      for (unsigned int i = 0; i < nmAddPoints; ++i) {
+        double newX = _point.parentX;
+        double newY = _point.parentY;
+        newX += precision * i * dx / d;
+        newY += precision * i * dy / d;
+        
+        const double dist = std::hypot(newX - obstacle.x, newY - obstacle.y);
+
+        if(dist <= obstacle.a)
           return true;
       }
     }

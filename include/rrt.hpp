@@ -19,9 +19,9 @@ public:
       std::vector<Obstacle> _obstacles,
       const double _maxStep=3.0,
       const int _iterations=500,
-      const double _threshold=0.5,
       const int _sampleRangeMin=0,
-      const int _sampleRangeMax=15);
+      const int _sampleRangeMax=15,
+      const double _precision=0.5);
 
   /**
    * @brief Runs the RRT algorithm over given iterations
@@ -83,8 +83,8 @@ private:
   std::vector<Point> points;
   std::vector<Obstacle> obstacles;
   int iterations;
-  double threshold;
   double sampleRangeMin;
   double sampleRangeMax;
   double maxStep;
+  double precision;
 };
