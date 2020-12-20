@@ -15,13 +15,13 @@ int main() {
   start.path.push_back(start);
   Point end(6.0, 10.0);
     
-  std::vector<Point> obstacles = {Point(5.0, 5.0),
-                                  Point(3.0, 6.0),
-                                  Point(3, 8),
-                                  Point(3, 10),
-                                  Point(7, 5),
-                                  Point(9, 5),
-                                  Point(8, 10)};
+  std::vector<Obstacle> obstacles = {Obstacle(5.0, 5.0, 1.0),
+                                     Obstacle(3.0, 6.0, 1.0),
+                                     Obstacle(3, 8, 1.0),
+                                     Obstacle(3, 10, 1.0),
+                                     Obstacle(7, 5, 1.0),
+                                     Obstacle(9, 5, 1.0),
+                                     Obstacle(8, 10, 1.0)};
 
   std::vector<double> ox;
   std::vector<double> oy;

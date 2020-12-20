@@ -1,8 +1,10 @@
 #include "point.hpp"
+#include "obstacle.hpp"
 
 #include <random>
 #include <algorithm>
 #include <cmath>
+#include <vector>
 
 /**
  * @brief RRT base class implementation from http://msl.cs.uiuc.edu/~lavalle/papers/Lav98c.pdf
@@ -14,7 +16,7 @@ public:
   RRT();
   RRT(Point _start,
       Point _end,
-      std::vector<Point> _obstacles,
+      std::vector<Obstacle> _obstacles,
       const double _maxStep=3.0,
       const int _iterations=500,
       const double _threshold=0.5,
@@ -55,13 +57,13 @@ public:
    * @brief Get obstacle that is nearest to a given point
    * @return Nearest Point
    */
-  Point getNearestObstacle(Point _point);
+  Obstacle getNearestObstacle(Point _point);
 
   /**
    * @brief Get distance between two points
    * @return double: Distance between two points
    */
-  double getDistance(Point _a, Point _b);
+  template<typename A, typename B> double getDistance(A &_a, B &_b);
 
   /**
    * @brief Get path from the last point
@@ -79,7 +81,7 @@ private:
   Point start;
   Point end;
   std::vector<Point> points;
-  std::vector<Point> obstacles;
+  std::vector<Obstacle> obstacles;
   int iterations;
   double threshold;
   double sampleRangeMin;

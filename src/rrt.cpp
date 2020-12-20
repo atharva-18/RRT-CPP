@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 RRT::RRT(Point _start,
          Point _end,
-         std::vector<Point> _obstacles,
+         std::vector<Obstacle> _obstacles,
          const double _maxStep /*2.0*/,
          const int _iterations /*=500 */,
          const double _threshold /*=0.5*/,
@@ -83,9 +83,9 @@ Point RRT::getNearestPoint(Point _point)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-Point RRT::getNearestObstacle(Point _point)
+Obstacle RRT::getNearestObstacle(Point _point)
 {
-  auto it = std::min_element(obstacles.begin(), obstacles.end(), [&](const Point &a, const Point &b) {
+  auto it = std::min_element(obstacles.begin(), obstacles.end(), [&](const Obstacle &a, const Obstacle &b) {
     return getDistance(_point, a) < getDistance(_point, b);
   });
 
@@ -93,7 +93,7 @@ Point RRT::getNearestObstacle(Point _point)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-double RRT::getDistance(Point _a, Point _b)
+template<typename A, typename B> double RRT::getDistance(A &_a, B &_b)
 {
   double dx = _a.x - _b.x;
   double dy = _a.y - _b.y;
