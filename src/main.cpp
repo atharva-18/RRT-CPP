@@ -78,6 +78,7 @@ int main()
     std::cout << "Path found!" << std::endl;
 
     plt::plot(pathX, pathY, "r"); 
+    plt::scatter(pathX, pathY, 50);
   } else {
     std::cout << "Path size: " << rrt.getPath().size() << std::endl;
     std::cout << "Algorithm time out...try again." << std::endl;
