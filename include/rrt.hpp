@@ -1,6 +1,7 @@
 #include "point.hpp"
 
 #include <random>
+#include <algorithm>
 #include <cmath>
 
 /**
@@ -10,20 +11,47 @@ class RRT
 {
 public:
   // Constructor
-  RRT(Point _start, Point _end);
+  RRT();
+  RRT(Point _start, Point _end, std::vector<Point> _obstacles);
 
   // Destructor
   ~RRT();
 
   /**
    * @brief Runs the RRT algorithm over given iterations
+   * @return True is path is found else false
    */
-  void run();
+  bool run();
 
   /**
-   * @brief Samples a point in the state space and adds it to the tree.
+   * @brief Samples a point in the state space.
+   * @return Random Point in state space
    */
-  void sample();
+  Point sample();
+
+  /**
+   * @brief Get point that is nearest to a given point
+   * @return Nearest Point
+   */
+  Point getNearestPoint(Point _point);
+
+  /**
+   * @brief Get obstacle that is nearest to a given point
+   * @return Nearest Point
+   */
+  Point getNearestObstacle(Point _point);
+
+  /**
+   * @brief Returns a point considering source and destination
+   * @return Point instance with path
+   */
+  Point getPoint(Point _source, Point _destination);
+
+  /**
+   * @brief Get distance between two points
+   * @return double: Distance between two points
+   */
+  double getDistance(Point _a, Point _b);
 
   /**
    * @brief Checks if the given node collides with any obstacle
@@ -32,17 +60,20 @@ public:
   bool collision(Point _point);
 
   /**
-   * @brief Get a point considering source and destination
-   * @return Point instance with path
+   * @brief Check if end point can be reached and add final point
+   * @return True is path is complete else false
    */
-  Point getPoint(Point _source, Point _destination);
+  bool checkPathClosure(Point _point);
 
   Point start;
   Point end;
 
 private:
+  std::vector<Point> points;
+  std::vector<Point> obstacles;
   int iterations;
   double threshold;
-  double sampleRange;
+  double sampleRangeMin;
+  double sampleRangeMax;
   double maxStep;
 };
