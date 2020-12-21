@@ -65,6 +65,7 @@ int main()
     pathY.push_back(point.y);
   }
 
+  plt::title("RRT Path Planning");
   plt::grid(true);
   plt::axis("equal");
 
