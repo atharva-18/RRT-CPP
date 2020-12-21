@@ -34,11 +34,11 @@ int main()
     
   std::vector<Obstacle> obstacles;
 
-  for(auto _obs:obs) {
+  for (auto _obs:obs) {
     obstacles.push_back(Obstacle(_obs[0], _obs[1], _obs[2]));
   }
 
-  for(auto &obstacle: obstacles) {
+  for (auto &obstacle: obstacles) {
     std::vector<double> ox;
     std::vector<double> oy;
     for (int deg = -1; deg < 360; deg += 5) {
@@ -64,6 +64,14 @@ int main()
     pathX.push_back(point.x);
     pathY.push_back(point.y);
   }
+
+  plt::grid(true);
+
+  const int limLeft = static_cast<int>(sampleRangeMin) - 1;
+  const int limRight = static_cast<int>(sampleRangeMax) + 1;
+
+  plt::xlim(limLeft, limRight);
+  plt::ylim(limLeft, limRight);
 
   for (auto &point:points) {
     std::vector<double> x = {point.x, point.parentX};
