@@ -38,6 +38,10 @@ int main()
     obstacles.push_back(Obstacle(_obs[0], _obs[1], _obs[2]));
   }
 
+  plt::title("RRT Path Planning");
+  plt::grid(true);
+  plt::axis("equal");
+
   for (auto &obstacle: obstacles) {
     std::vector<double> ox;
     std::vector<double> oy;
@@ -64,10 +68,6 @@ int main()
     pathX.push_back(point.x);
     pathY.push_back(point.y);
   }
-
-  plt::title("RRT Path Planning");
-  plt::grid(true);
-  plt::axis("equal");
 
   plt::plot({start.x}, {start.y}, "xr");
   plt::plot({end.x}, {end.y}, "xr");
