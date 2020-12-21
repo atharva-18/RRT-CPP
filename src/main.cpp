@@ -66,12 +66,10 @@ int main()
   }
 
   plt::grid(true);
+  plt::axis("equal");
 
-  const int limLeft = static_cast<int>(sampleRangeMin) - 1;
-  const int limRight = static_cast<int>(sampleRangeMax) + 1;
-
-  plt::xlim(limLeft, limRight);
-  plt::ylim(limLeft, limRight);
+  plt::plot({start.x}, {start.y}, "xr");
+  plt::plot({end.x}, {end.y}, "xr");
 
   for (auto &point:points) {
     std::vector<double> x = {point.x, point.parentX};
