@@ -27,7 +27,7 @@ RRT::RRT(Point _start,
 bool RRT::run()
 {
   int cnt = 0;
-  for(int i = 0; i < iterations; i++, cnt++) {
+  for (int i = 0; i < iterations; i++, cnt++) {
     auto sampledPoint = sample();
     auto nearestPoint = getNearestPoint(sampledPoint);
 
@@ -130,7 +130,7 @@ std::vector<Point> RRT::getPoints()
         
         const double dist = std::hypot(newX - obstacle.x, newY - obstacle.y);
 
-        if(dist <= obstacle.a)
+        if (dist <= obstacle.a)
           return true;
       }
     }
@@ -149,7 +149,7 @@ bool RRT::checkPathClosure(Point _point)
     endPoint.path = _point.path;
     endPoint.path.push_back(endPoint);
 
-    if(!collision(endPoint)) {
+    if (!collision(endPoint)) {
       points.push_back(endPoint);
       return true;
     }
