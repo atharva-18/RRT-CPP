@@ -37,30 +37,36 @@ public:
 
   /**
    * @brief Checks if the given node collides with any obstacle
+   * @param[in] _point Point to be checked for collision
    * @return True is colliding else false
    */
   bool collision(Point _point);
 
   /**
    * @brief Check if end point can be reached and add final point
+   * @param[in] _point Penultimate point in the path
    * @return True is path is complete else false
    */
   bool checkPathClosure(Point _point);
 
   /**
    * @brief Get point that is nearest to a given point
+   * @param[in] _point Point to be considered
    * @return Nearest Point
    */
   Point getNearestPoint(Point _point);
 
   /**
    * @brief Get obstacle that is nearest to a given point
+   * @param[in] _point Point to be considered
    * @return Nearest Point
    */
   Obstacle getNearestObstacle(Point _point);
 
   /**
    * @brief Get distance between two points
+   * @param[in] _a Point a
+   * @param[in] _b Point b
    * @return double: Distance between two points
    */
   template<typename A, typename B> double getDistance(A &_a, B &_b);
