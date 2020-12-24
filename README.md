@@ -1,5 +1,5 @@
 # RRT-CPP
-Rapidly-Exploring Random Trees (RRTs, Lavalle et al., 1998) implementation in C++17. The use of Ubuntu, C++17, and Python 3.8 is assumed everywhere.
+Rapidly-Exploring Random Trees (RRTs, LaValle et al., 1998) implementation in C++17. The use of Ubuntu, C++17, and Python 3.8 is assumed everywhere.
 
 <p align="center">
   <img width="500" height="373" src="https://upload.wikimedia.org/wikipedia/commons/6/62/Rapidly-exploring_Random_Tree_%28RRT%29_500x373.gif">
